@@ -1,11 +1,6 @@
 package main
 
 import (
-	"auth-service/internal/config"
-	"auth-service/internal/database"
-	"auth-service/internal/handler"
-	"auth-service/internal/observability"
-	"auth-service/internal/routes"
 	"context"
 	"log"
 	"net/http"
@@ -14,6 +9,11 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/4yushraman-jpg/auth-service/internal/config"
+	"github.com/4yushraman-jpg/auth-service/internal/database"
+	"github.com/4yushraman-jpg/auth-service/internal/handler"
+	"github.com/4yushraman-jpg/auth-service/internal/observability"
+	"github.com/4yushraman-jpg/auth-service/internal/routes"
 	"github.com/joho/godotenv"
 )
 
