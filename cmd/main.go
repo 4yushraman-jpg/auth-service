@@ -13,7 +13,9 @@ import (
 	"github.com/4yushraman-jpg/auth-service/internal/database"
 	"github.com/4yushraman-jpg/auth-service/internal/handler"
 	"github.com/4yushraman-jpg/auth-service/internal/observability"
+	"github.com/4yushraman-jpg/auth-service/internal/repository"
 	"github.com/4yushraman-jpg/auth-service/internal/routes"
+	"github.com/4yushraman-jpg/auth-service/internal/service"
 	"github.com/joho/godotenv"
 )
 
@@ -39,9 +41,21 @@ func main() {
 
 	healthHandler := handler.NewHealthHandler()
 
+	userRepo := repository.NewUserRepository(db)
+
+	passwordService := service.NewPasswordService()
+
+	authService := service.NewAuthService(
+		userRepo,
+		passwordService,
+	)
+
+	authHandler := handler.NewAuthHandler(authService)
+
 	router := routes.SetupRouter(
 		logger,
 		healthHandler,
+		authHandler,
 	)
 
 	server := &http.Server{
